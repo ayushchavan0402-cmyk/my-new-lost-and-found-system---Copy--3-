@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Report Lost Item | College Lost & Found</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f7fb;
+    color:#172033;
+}
+
+.container{
+    width:92%;
+    max-width:800px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:16px;
+    box-shadow:0 10px 30px rgba(0,0,0,.10);
+}
+
+.back{
+    text-decoration:none;
+    color:#2563eb;
+    font-weight:bold;
+}
+
+h1{
+    text-align:center;
+    color:#2563eb;
+    margin:20px 0 30px;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    margin-bottom:7px;
+    font-weight:bold;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    font-size:15px;
+    outline:none;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#2563eb;
+}
+
+textarea{
+    resize:vertical;
+}
+
+.upload-box{
+    border:2px dashed #2563eb;
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+    background:#f8fbff;
+}
+
+.upload-box input{
+    border:none;
+    background:transparent;
+}
+
+#preview{
+    display:none;
+    width:100%;
+    max-width:350px;
+    height:250px;
+    object-fit:contain;
+    margin:15px auto 0;
+    border-radius:10px;
+    border:1px solid #ddd;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:9px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+#message{
+    display:none;
+    margin-top:15px;
+    padding:12px;
+    border-radius:8px;
+    text-align:center;
+    font-weight:bold;
+}
+
+.success{
+    display:block !important;
+    background:#dcfce7;
+    color:#166534;
+}
+
+.error{
+    display:block !important;
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+<a href="dashboard.html" class="back">
+← Back to Dashboard
+</a>
+
+<h1>📦 Report Lost Item</h1>
+
+
+<form id="lostForm">
+
+
+<div class="form-group">
+
+<label>Student Name</label>
+
+<input
+type="text"
+id="studentName"
+placeholder="Enter your name"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>PRN / Roll Number</label>
+
+<input
+type="text"
+id="prn"
+placeholder="Enter PRN / Roll Number"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Department</label>
+
+<input
+type="text"
+id="department"
+placeholder="Computer Engineering">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Year</label>
+
+<select id="year" required>
+
+<option value="">Select Year</option>
+
+<option>First Year</option>
+<option>Second Year</option>
+<option>Third Year</option>
+<option>Final Year</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Phone Number</label>
+
+<input
+type="tel"
+id="phone"
+placeholder="Enter phone number"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Item Name</label>
+
+<input
+type="text"
+id="itemName"
+placeholder="Example: Black Wallet"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Category</label>
+
+<select id="category" required>
+
+<option value="">Select Category</option>
+
+<option>ID Card</option>
+<option>Wallet</option>
+<option>Mobile</option>
+<option>Laptop</option>
+<option>Bag</option>
+<option>Keys</option>
+<option>Watch</option>
+<option>Books</option>
+<option>Other</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Description</label>
+
+<textarea
+id="description"
+rows="4"
+placeholder="Color, brand, unique marks etc."></textarea>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Last Seen Location</label>
+
+<select id="location" required>
+
+<option value="">Select Location</option>
+
+<option>Library</option>
+<option>Canteen</option>
+<option>Classroom</option>
+<option>Laboratory</option>
+<option>Parking</option>
+<option>Hostel</option>
+<option>Auditorium</option>
+<option>Sports Ground</option>
+<option>Other</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Date Lost</label>
+
+<input
+type="date"
+id="dateLost"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Upload Item Image</label>
+
+<div class="upload-box">
+
+<input
+type="file"
+id="image"
+accept="image/*"
+required>
+
+<p>
+Select JPG, PNG or JPEG image
+</p>
+
+<img id="preview">
+
+</div>
+
+</div>
+
+
+<button type="submit">
+
+Submit Lost Report
+
+</button>
+
+
+</form>
+
+
+<div id="message"></div>
+
+
+</div>
+
+
+<script>
+
+/* ==============================
+   IMAGE PREVIEW
+============================== */
+
+const imageInput =
+document.getElementById("image");
+
+const preview =
+document.getElementById("preview");
+
+let selectedImage = "";
+
+
+imageInput.addEventListener("change", function(){
+
+const file = this.files[0];
+
+if(!file){
+    return;
+}
+
+if(!file.type.startsWith("image/")){
+
+alert("Please select an image.");
+
+this.value="";
+
+return;
+
+}
+
+
+const reader = new FileReader();
+
+
+reader.onload = function(e){
+
+selectedImage = e.target.result;
+
+preview.src = selectedImage;
+
+preview.style.display = "block";
+
+};
+
+
+reader.readAsDataURL(file);
+
+});
+
+
+/* ==============================
+   SUBMIT FORM
+============================== */
+
+document
+.getElementById("lostForm")
+.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+
+if(!selectedImage){
+
+alert("Please select an item image.");
+
+return;
+
+}
+
+
+/* Create Lost Item Object */
+
+const lostItem = {
+
+id: Date.now(),
+
+type: "LOST",
+
+studentName:
+document.getElementById("studentName").value,
+
+prn:
+document.getElementById("prn").value,
+
+department:
+document.getElementById("department").value,
+
+year:
+document.getElementById("year").value,
+
+phone:
+document.getElementById("phone").value,
+
+itemName:
+document.getElementById("itemName").value,
+
+category:
+document.getElementById("category").value,
+
+description:
+document.getElementById("description").value,
+
+location:
+document.getElementById("location").value,
+
+dateLost:
+document.getElementById("dateLost").value,
+
+image:
+selectedImage,
+
+status:"LOST"
+
+};
+
+
+/* Get old reports */
+
+let reports =
+JSON.parse(
+localStorage.getItem("lostReports")
+) || [];
+
+
+/* Add new report */
+
+reports.push(lostItem);
+
+
+/* Save */
+
+localStorage.setItem(
+"lostReports",
+JSON.stringify(reports)
+);
+
+
+/* Success */
+
+const message =
+document.getElementById("message");
+
+message.innerText =
+"✅ Lost Item Report Submitted Successfully!";
+
+message.className =
+"success";
+
+
+/* Reset */
+
+document
+.getElementById("lostForm")
+.reset();
+
+preview.src="";
+
+preview.style.display="none";
+
+selectedImage="";
+
+
+});
+
+</script>
+
+
+</body>
+
+</html>

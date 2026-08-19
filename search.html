@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Search Items | College Lost & Found</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+
+body{
+    background:#f4f7fb;
+    font-family:Poppins,sans-serif;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:40px auto;
+}
+
+.back{
+    text-decoration:none;
+    color:#0d6efd;
+    font-weight:bold;
+}
+
+h2{
+    text-align:center;
+    color:#0d6efd;
+    margin:20px 0;
+}
+
+.search-box{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr auto;
+    gap:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.search-box input,
+.search-box select{
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.search-box button{
+    background:#0d6efd;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    padding:12px 25px;
+}
+
+.search-box button:hover{
+    background:#0b5ed7;
+}
+
+.items{
+    margin-top:30px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.content{
+    padding:20px;
+}
+
+.status{
+    display:inline-block;
+    padding:5px 12px;
+    border-radius:20px;
+    color:white;
+    font-size:13px;
+    margin-bottom:10px;
+}
+
+.found{
+    background:#28a745;
+}
+
+.lost{
+    background:#dc3545;
+}
+
+.content h3{
+    color:#0d6efd;
+    margin-bottom:10px;
+}
+
+.content p{
+    margin:6px 0;
+}
+
+.claim-btn{
+    display:inline-block;
+    margin-top:15px;
+    background:#0d6efd;
+    color:white;
+    text-decoration:none;
+    padding:10px 20px;
+    border-radius:8px;
+}
+
+.claim-btn:hover{
+    background:#084fc7;
+}
+
+@media(max-width:768px){
+
+.search-box{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<a href="dashboard.html" class="back">← Back to Dashboard</a>
+
+<h2>🔍 Search Lost & Found Items</h2>
+
+<div class="search-box">
+
+<input type="text" id="searchInput" placeholder="Search Item Name...">
+
+<select id="category">
+<option>All Categories</option>
+<option>ID Card</option>
+<option>Wallet</option>
+<option>Mobile</option>
+<option>Laptop</option>
+<option>Bag</option>
+<option>Keys</option>
+<option>Books</option>
+</select>
+
+<select id="location">
+<option>All Locations</option>
+<option>Library</option>
+<option>Canteen</option>
+<option>Parking</option>
+<option>Hostel</option>
+<option>Laboratory</option>
+</select>
+
+<button onclick="searchItem()">Search</button>
+
+</div>
+
+<div class="items">
+
+<div class="card">
+
+<img src="images/wallet.jpg" alt="Wallet">
+
+<div class="content">
+
+<span class="status found">FOUND</span>
+
+<h3>Black Wallet</h3>
+
+<p><b>Category:</b> Wallet</p>
+
+<p><b>Location:</b> Library</p>
+
+<p><b>Date:</b> 24 July 2026</p>
+
+<p><b>Description:</b> Black leather wallet with college ID.</p>
+
+<a href="#" class="claim-btn">Claim Item</a>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<img src="images/idcard.jpg" alt="ID Card">
+
+<div class="content">
+
+<span class="status lost">LOST</span>
+
+<h3>Student ID Card</h3>
+
+<p><b>Category:</b> ID Card</p>
+
+<p><b>Location:</b> Canteen</p>
+
+<p><b>Date:</b> 23 July 2026</p>
+
+<p><b>Description:</b> DY Patil College Student ID.</p>
+
+<a href="#" class="claim-btn">View Details</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function searchItem(){
+
+let item=document.getElementById("searchInput").value;
+
+if(item==""){
+alert("Showing all available items.");
+}
+else{
+alert("Searching for: "+item);
+}
+
+// Later this will fetch data from MongoDB.
+
+}
+
+</script>
+
+</body>
+</html>

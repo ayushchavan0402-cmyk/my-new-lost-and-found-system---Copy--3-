@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Item | College Lost & Found</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        body{
+            margin:0;
+            font-family:Arial, Helvetica, sans-serif;
+            background:#f4f7fb;
+        }
+
+        .container{
+            width:90%;
+            max-width:1000px;
+            margin:50px auto;
+            text-align:center;
+        }
+
+        h1{
+            color:#0d6efd;
+            margin-bottom:10px;
+        }
+
+        p{
+            color:#555;
+            margin-bottom:40px;
+        }
+
+        .cards{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+            gap:30px;
+        }
+
+        .card{
+            background:#fff;
+            padding:30px;
+            border-radius:12px;
+            box-shadow:0 5px 15px rgba(0,0,0,0.1);
+            transition:0.3s;
+        }
+
+        .card:hover{
+            transform:translateY(-8px);
+        }
+
+        .icon{
+            font-size:60px;
+            margin-bottom:15px;
+        }
+
+        h2{
+            color:#0d6efd;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:20px;
+            padding:12px 25px;
+            background:#0d6efd;
+            color:white;
+            text-decoration:none;
+            border-radius:8px;
+            transition:0.3s;
+        }
+
+        .btn:hover{
+            background:#084298;
+        }
+
+        .back{
+            display:inline-block;
+            margin-top:40px;
+            color:#0d6efd;
+            text-decoration:none;
+            font-weight:bold;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>📦 Report an Item</h1>
+
+    <p>
+        Select the type of report you want to submit.
+    </p>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <div class="icon">😟</div>
+
+            <h2>Lost Item</h2>
+
+            <p>
+                Lost your belongings on campus?
+                Submit a lost item report with complete details.
+            </p>
+
+            <a href="lost.html" class="btn">
+                Report Lost Item
+            </a>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icon">😊</div>
+
+            <h2>Found Item</h2>
+
+            <p>
+                Found an item in the college?
+                Report it so the owner can claim it.
+            </p>
+
+            <a href="found.html" class="btn">
+                Report Found Item
+            </a>
+
+        </div>
+
+    </div>
+
+    <a href="dashboard.html" class="back">
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>
