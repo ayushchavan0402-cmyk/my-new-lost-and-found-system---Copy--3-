@@ -5,147 +5,179 @@ require("dotenv").config();
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// =====================
-// MongoDB Connection
-// =====================
-
-const MONGO_URI =
-process.env.MONGO_URI ||
-"mongodb://127.0.0.1:27017/college_lost_found";
-
-mongoose
-.connect(MONGO_URI)
-.then(() => console.log("✅ MongoDB Connected"))
-.catch((err) => console.log(err));
-
-// =====================
-// Test Route
-// =====================
-
-app.get("/", (req, res) => {
-
-    res.json({
-        message: "College Lost & Found API Running"
-    });
-
-});
-
-// =====================
-// Lost Item API
-// =====================
-
-app.post("/api/lost", async (req, res) => {
-
-    try{
-
-        console.log(req.body);
-
-        res.status(201).json({
-
-            success:true,
-
-            message:"Lost Item Submitted Successfully",
-
-            data:req.body
-
-        });
-
-    }
-
-    catch(error){
-
-        res.status(500).json({
-
-            success:false,
-
-            message:error.message
-
-        });
-
-    }
-
-});
-
-// =====================
-// Found Item API
-// =====================
-
-app.post("/api/found", async (req, res) => {
-
-    try{
-
-        console.log(req.body);
-
-        res.status(201).json({
-
-            success:true,
-
-            message:"Found Item Submitted Successfully",
-
-            data:req.body
-
-        });
-
-    }
-
-    catch(error){
-
-        res.status(500).json({
-
-            success:false,
-
-            message:error.message
-
-        });
-
-    }
-
-});
-
-// =====================
-// Get All Lost Items
-// =====================
-
-app.get("/api/lost", async (req,res)=>{
-
-    res.json({
-
-        success:true,
-
-        items:[]
-
-    });
-
-});
-
-// =====================
-// Get All Found Items
-// =====================
-
-app.get("/api/found",(req,res)=>{
-
-    res.json({
-
-        success:true,
-
-        items:[]
-
-    });
-
-});
-
-// =====================
-// Server
-// =====================
-
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT,()=>{
+// MongoDB Connection
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((error) => console.log("❌ MongoDB Error:", error));
 
-    console.log(`🚀 Server Running on Port ${PORT}`);
+// Schemas
+const itemSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
 
+    description: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    location: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    date: {
+      type: String,
+      required: true,
+    },
+
+    contact: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const LostItem = mongoose.model("LostItem", itemSchema);
+const FoundItem = mongoose.model("FoundItem", itemSchema);
+
+// ============================
+// Health Check
+// ============================
+
+app.get("/", (req, res) => {
+  res.json({
+    message: "College Lost & Found API Running",
+  });
+});
+
+// ============================
+// LOST ITEM
+// ============================
+
+// Add Lost Item
+app.post("/api/lost", async (req, res) => {
+  try {
+    const { name, description, location, date, contact } = req.body;
+
+    if (!name || !description || !location || !date || !contact) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
+
+    const item = await LostItem.create({
+      name,
+      description,
+      location,
+      date,
+      contact,
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "Lost Item Submitted Successfully",
+      data: item,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+// Get Lost Items
+app.get("/api/lost", async (req, res) => {
+  try {
+    const items = await LostItem.find().sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      items,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+// ============================
+// FOUND ITEM
+// ============================
+
+// Add Found Item
+app.post("/api/found", async (req, res) => {
+  try {
+    const { name, description, location, date, contact } = req.body;
+
+    if (!name || !description || !location || !date || !contact) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
+
+    const item = await FoundItem.create({
+      name,
+      description,
+      location,
+      date,
+      contact,
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "Found Item Submitted Successfully",
+      data: item,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+// Get Found Items
+app.get("/api/found", async (req, res) => {
+  try {
+    const items = await FoundItem.find().sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      items,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+// ============================
+// SERVER
+// ============================
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
